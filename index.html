@@ -282,7 +282,245 @@
             </div>
         </div>
     </section>
+<!--------------------------------------------------------------->
 
+
+
+<!-- SECTION CLIENTES -->
+<section id="clientes" >
+    <div class="container boxBt02 box">
+        
+        <!-- Menu Horizontal com Scroll Suave -->
+        <div class="menu-horizontal">
+            <button class="profissoes" data-category="Fisioterapias">Fisioterapias </button>
+            <button class="profissoes" data-category="Fonoaudiologia">Fonoaudiologia</button>
+            <button class="profissoes" data-category="Nutrição">Nutrição</button>
+            <button class="profissoes" data-category="Psicologia">Psicologia</button>
+            <button class="profissoes" data-category="Psicopedagogia">Psicopedagogia</button>
+            <button class="profissoes" data-category="Psiquiatria">Psiquiatria</button>
+            <button class="profissoes" data-category="Shiatsuterapia">Shiatsuterapia</button>
+            <button class="profissoes" data-category="Terapia Ocupacional">Terapia Ocupacional</button>
+        </div>
+  
+        <!-- Carrossel de Imagens -->
+        <div class="carousel-container">
+            <div class="carousel" id="image-carousel"></div>
+            <div class="carousel-controls">
+                <span class="prev">&#10094;</span>
+                <span class="next">&#10095;</span>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Estilos -->
+    <style>
+        /* Menu Horizontal */
+        @media (max-width: 768px) {
+        .profissoes{
+            width: 100%;
+            height: 35px;
+            padding: 10px;
+            margin: 13px;
+        }
+        }
+        @media (min-width: 768px) {
+            .profissoes{
+                width: 100%;
+                height: 35px;
+                padding: 10px;
+                margin: 13px;
+            }
+        }
+        
+        .menu-horizontal {
+          display: flex;
+          overflow-x: auto;
+          white-space: nowrap;
+          /* padding: 10px; */
+          border-bottom: -1px solid #ffffff;
+          scrollbar-width: thin;
+          scrollbar-color: #1abc9c #ffffff;
+        }
+  
+        .menu-horizontal::-webkit-scrollbar {
+            height: 8px; /* Altura da barra de rolagem */
+        }
+  
+        .menu-horizontal::-webkit-scrollbar-track {
+            background: #ddd;
+        }
+  
+        .menu-horizontal::-webkit-scrollbar-thumb {
+            background-color: #333;
+            border-radius: 10px;
+            border: 3px solid transparent;
+        }
+  
+        .menu-horizontal button {
+          margin-right: -2px;
+          background-color: #04B0E0;
+          color: #fff;  
+          border: none;
+          /* padding: 10px; */
+          border-radius: 7px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+          margin-bottom: 19px;
+        }
+        .menu-horizontal button:hover {
+          margin-right: -2px;
+          background-color: #017c9e;
+          color: #fff;  
+          border: none;
+          /* padding: 10px; */
+          border-radius: 7px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+          margin-bottom: 19px;
+        }
+  
+        .menu-horizontal button:hover {
+            background-color: 1abc9c;
+        }
+  
+        /* Container do Carrossel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+  
+        /* Carrossel */
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            will-change: transform;
+        }
+  
+        .carousel img {
+            width: 100%;
+            max-width: 500px;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px; /* Adiciona bordas arredondadas às imagens */
+            margin-right: 10px;
+        }
+  
+        /* Botões de Navegação */
+        .carousel-controls .prev,
+        .carousel-controls .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+  
+        .carousel-controls .prev {
+            left: 10px;
+        }
+  
+        .carousel-controls .next {
+            right: 10px;
+        }
+  
+        .carousel-controls .prev:hover,
+        .carousel-controls .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+  
+        /* Estilos responsivos para celular */
+        @media (max-width: 768px) {
+            .carousel img {
+                max-width: 100%;
+                max-height: 400px;
+            }
+  
+            .carousel-controls {
+                display: none; /* Oculta os controles de carrossel no celular */
+            }
+        }
+    </style>
+  </section>
+  
+  <!-- Script -->
+  <script>
+    const imageCarousel = document.getElementById('image-carousel');
+    const categories = {
+        Fisioterapias: ['https://via.placeholder.com/500/FF9999', 'https://via.placeholder.com/500/FF9999', 'https://via.placeholder.com/500/FF9999'],
+        Fonoaudiologia: ['https://via.placeholder.com/500/99FF99', 'https://via.placeholder.com/500/99FF99', 'https://via.placeholder.com/500/99FF99'],
+        Nutrição: ['https://via.placeholder.com/500/9999FF', 'https://via.placeholder.com/500/9999FF', 'https://via.placeholder.com/500/9999FF'],
+        Psicologia: ['https://via.placeholder.com/500/FFFF99', 'https://via.placeholder.com/500/FFFF99', 'https://via.placeholder.com/500/FFFF99'],
+        Psicopedagogia: ['https://via.placeholder.com/500/FF99FF', 'https://via.placeholder.com/500/FF99FF', 'https://via.placeholder.com/500/FF99FF'],
+        Psiquiatria: ['https://via.placeholder.com/500/99FFFF', 'https://via.placeholder.com/500/99FFFF', 'https://via.placeholder.com/500/99FFFF'],
+        Shiatsuterapia: ['https://via.placeholder.com/500/FFCC99', 'https://via.placeholder.com/500/FFCC99', 'https://via.placeholder.com/500/FFCC99'],
+        Terapia Ocupacional: ['https://via.placeholder.com/500/CCCCCC', 'https://via.placeholder.com/500/CCCCCC', 'https://via.placeholder.com/500/CCCCCC']
+    };
+  
+    let currentCategory = 'imobiliarias';
+    let currentIndex = 0;
+  
+    document.querySelectorAll('.menu-horizontal button').forEach(button => {
+        button.addEventListener('click', () => {
+            currentCategory = button.getAttribute('data-category');
+            currentIndex = 0;
+            loadImages(currentCategory);
+        });
+    });
+  
+    function loadImages(category) {
+        imageCarousel.innerHTML = ''; // Limpa o carrossel
+        categories[category].forEach(imgSrc => {
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            imageCarousel.appendChild(img);
+        });
+        updateCarousel();
+    }
+  
+    function updateCarousel() {
+        const images = document.querySelectorAll('#image-carousel img');
+        const totalImages = images.length;
+        const carouselWidth = imageCarousel.clientWidth;
+  
+        if (totalImages > 0) {
+            imageCarousel.style.transform = `translateX(${-currentIndex * carouselWidth}px)`;
+        }
+    }
+  
+    document.querySelector('.prev').addEventListener('click', () => {
+        const totalImages = document.querySelectorAll('#image-carousel img').length;
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+  
+    document.querySelector('.next').addEventListener('click', () => {
+        const totalImages = document.querySelectorAll('#image-carousel img').length;
+        if (currentIndex < totalImages - 1) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+  
+    // Inicializa o carrossel com a categoria padrão
+    loadImages(currentCategory);
+  
+    // Atualiza a visualização quando a tela é redimensionada
+    window.addEventListener('resize', updateCarousel);
+  </script>
+  
+  <!-------------------------------------------------------------------->
 </main>
 
     <!-- Footer -->
