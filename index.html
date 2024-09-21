@@ -1,195 +1,342 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifas O$TENT</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="headerviewport" content="width=device-width, initial-scale=1.0">
+    <title>PsicoCenter</title>
+    
     <style>
-        .product-item {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 10px;
-            padding: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            background-color: #f9f9f9;
+        /* Reset de margens e padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .product-thumbnail {
-            max-width: 100px;
-            height: auto;
-            cursor: pointer;
-            margin: 5px;
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
         }
-        .product-fullsize {
-            max-width: 90vw;
-            max-height: 90vh;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            z-index: 1000;
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #04B0E0;
+            position: fixed; /* Fixado no topo */
+            width: 100%;
+            top: 0;
+            z-index: 100; /* Garante que o header esteja na frente */
         }
-        .point-button {
-            margin: 2px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
+
+        main{
+            max-width: 800px;
+            margin: auto;
         }
-        .point-button.selected {
-            background-color: #4CAF50;
-        }
-        .point-button.sold {
-            background-color: #FF5722;
-            cursor: not-allowed;
-        }
-        #checkout {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        #total-amount {
+
+        .logo {
+            font-size: 24px;
             font-weight: bold;
         }
-        #winners {
-            margin-top: 20px;
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            transition: 0.3s ease-in-out;
         }
-        #winner-list {
-            list-style-type: none;
-            padding: 0;
+
+        nav ul li a {
+            display: flex;
+            color: #04B0E0;
+            text-decoration: none;
+            font-weight: bold;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-around;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
-        #winner-list li {
-            padding: 5px;
-            border-bottom: 1px solid #ddd;
+
+        nav ul li a:hover {
+            color: #ffffff;
+            background-color: #95236E;
+            border-radius: 8px;
+            transition: 0.1s;
+            padding: 3px;
         }
-        @media (max-width: 600px) {
-            .product-thumbnail {
-                max-width: 80px;
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #95236E;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle.open {
+            transform: rotate(181deg); /* Animação do ícone ao abrir */
+        }
+
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #95236E;
+            padding: 15px 20px;
+            border-radius: 50px;
+            color: white;
+            font-size: 18px;
+            z-index: 10; /* Garante que o botão flutuante esteja na frente */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .floating-button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .floating-button:hover {
+            background-color: #95236E;
+            transform: scale(1.1); /* Animação de hover no botão flutuante */
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #04B0E0;
+            color: white;
+        }
+
+        /* Estilos para o carrossel */
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            overflow: hidden;
+            margin-top: 60px; /* Espaço para o header fixo */
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            transition: 0.5s ease-in-out;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Seção Quem Somos */
+        .about-section {
+            padding: 40px 20px;
+            background-color: #f5f5f5;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .about-image img {
+            max-width: 300px;
+            height: auto;   
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-family: "Dancing Script", cursive;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-family: serif;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #04B0E0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #017c9e;
+            transform: scale(1.1); /* Animação de hover no botão */
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                display: none;
+                background-color: #ffffff;
+                position: fixed;
+                top: 60px;
+                right: 0;
+                width: 100%;
+                padding: 20px;
+                border-radius: 0px 0px 40px 40px;
+                z-index: 100;
+                box-shadow: #04b0e061 5px 49px 65px 0px;
+            }
+
+            .menu-toggle {
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+            .carousel-slide img {
+                height: auto;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-image, .about-text {
+                width: 100%;
+                text-align: center;
+            }
+
+            .about-image img {
+                width: 80%;
             }
         }
+        #logo{
+            max-width: 150px;
+            margin-top: 10px;
+        }
+
+       
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
     </style>
 </head>
+
 <body>
+    <!-- Cabeçalho com menu -->
     <header>
-        <h1>Rifas O$TENT</h1>
+        <div class="logo"><img src="fotos/logo.png" alt="logo" id="logo"></div>
+        <nav id="menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#about-section">Quem Somos</a></li>
+                <li><a href="#">Serviços</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="#">Agendamento</a></li>
+                <li><a href="#">Local</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
     </header>
 
-    <section id="product-list">
-        <!-- Produtos serão carregados aqui -->
+    <!-- Carrossel de Imagens -->
+    <section class="carousel">
+        <div class="carousel-container" id="carousel">
+            <div class="carousel-slide">
+                <img src="fotos/clinica.jpeg" alt="Imagem 1">
+            </div>
+              <!--
+            <div class="carousel-slide">
+                <img src="fotos/clinica1.jpg" alt="Imagem 2">
+            </div>
+            <div class="carousel-slide">
+                <img src="https://via.placeholder.com/1200x600?text=Imagem+3" alt="Imagem 3">
+            </div>
+        -->
+        </div>
     </section>
 
-    <section id="checkout">
-        <h3>Finalizar Compra</h3>
-        <label for="buyer-name">Nome:</label>
-        <input type="text" id="buyer-name" required>
+    <main>
 
-        <label for="buyer-phone">Telefone:</label>
-        <input type="text" id="buyer-phone" required>
-        
-        <label for="buyer-instagram">Instagram (@):</label>
-        <input type="text" id="buyer-instagram" required>
-
-        <p id="total-amount">Total: R$ 0,00</p>
-        <button id="complete-purchase">Completar Compra</button>
+    <!-- Seção Quem Somos -->
+    <section id="about-section" class="about-section">
+        <div class="about-content">
+            <div class="about-image">
+                <img src="fotos/clinica1.jpg" alt="Imagem sobre nós">
+            </div>
+            <div class="about-text">
+                <h2>Quem Somos</h2>
+                <p>Somos uma clínica focada em ajudar nossos pacientes a encontrarem equilíbrio emocional e bem-estar mental. Nossa equipe é composta por profissionais altamente qualificados, comprometidos em fornecer um ambiente acolhedor e terapias eficazes.</p>
+                <a href="#" class="button">Saiba Mais</a>
+            </div>
+        </div>
     </section>
 
-    <section id="winners">
-        <h3>Histórico de Ganhadores</h3>
-        <ul id="winner-list"></ul>
-    </section>
+</main>
 
+    <!-- Footer -->
+    <footer>
+        <p>Todos os direitos reservados - PsicoCenter 2024</p>
+    </footer>
+
+    <!-- Script para o carrossel e o menu -->
     <script>
-        let total = 0;
-        const pricePerPoint = 2.00;
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
 
-        function loadProducts() {
-            const products = JSON.parse(localStorage.getItem('products') || '[]');
-            const productList = document.getElementById('product-list');
-            productList.innerHTML = ''; // Limpa a lista de produtos antes de carregar
-
-            products.slice().reverse().forEach(product => { // Inverte a lista para mostrar novos produtos no topo
-                const productItem = document.createElement('div');
-                productItem.className = 'product-item';
-
-                const productTitle = document.createElement('h2');
-                productTitle.textContent = `${product.name} - R$ ${product.pricePerPoint} por ponto`;
-                productItem.appendChild(productTitle);
-
-                product.images.forEach(imageURL => {
-                    const productImg = document.createElement('img');
-                    productImg.src = imageURL;
-                    productImg.className = 'product-thumbnail';
-                    productImg.addEventListener('click', () => {
-                        const fullImage = document.createElement('img');
-                        fullImage.src = imageURL;
-                        fullImage.className = 'product-fullsize';
-                        document.body.appendChild(fullImage);
-                        fullImage.addEventListener('click', () => document.body.removeChild(fullImage));
-                    });
-                    productItem.appendChild(productImg);
-                });
-
-                const pointsSection = document.createElement('div');
-                pointsSection.className = 'points-section';
-                for (let i = 1; i <= product.points; i++) {
-                    const pointBtn = document.createElement('button');
-                    pointBtn.textContent = i;
-                    pointBtn.className = 'point-button';
-                    if (product.soldPoints.includes(i)) {
-                        pointBtn.classList.add('sold');
-                        pointBtn.disabled = true;
-                    } else {
-                        pointBtn.addEventListener('click', () => {
-                            pointBtn.classList.toggle('selected');
-                            if (pointBtn.classList.contains('selected')) {
-                                total += pricePerPoint;
-                            } else {
-                                total -= pricePerPoint;
-                            }
-                            document.getElementById('total-amount').textContent = `Total: R$ ${total.toFixed(2)}`;
-                        });
-                    }
-                    pointsSection.appendChild(pointBtn);
-                }
-                productItem.appendChild(pointsSection);
-
-                productList.appendChild(productItem);
-            });
-        }
-
-        function loadWinners() {
-            const winners = JSON.parse(localStorage.getItem('winners') || '[]');
-            const winnerList = document.getElementById('winner-list');
-            winnerList.innerHTML = '';
-            winners.sort((a, b) => new Date(b.date) - new Date(a.date)); // Ordena os mais recentes no topo
-            winners.forEach(winner => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${winner.productName} - Ganhador: ${winner.winner} - Data: ${winner.date}`;
-                winnerList.appendChild(listItem);
-            });
-        }
-
-        document.getElementById('complete-purchase').addEventListener('click', () => {
-            const buyerName = document.getElementById('buyer-name').value;
-            const buyerPhone = document.getElementById('buyer-phone').value;
-            const buyerInstagram = document.getElementById('buyer-instagram').value;
-
-            if (buyerName && buyerPhone && buyerInstagram && total > 0) {
-                alert(`Compra realizada com sucesso!\nNome: ${buyerName}\nTelefone: ${buyerPhone}\nInstagram: ${buyerInstagram}\nTotal: R$ ${total.toFixed(2)}`);
-                // Aqui você pode adicionar a lógica para processar o pagamento e enviar os dados para o servidor
+        function showSlide(index) {
+            if (index >= totalSlides) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = totalSlides - 1;
             } else {
-                alert('Por favor, preencha todos os campos e selecione pelo menos um ponto.');
+                currentSlide = index;
             }
-        });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProducts();
-            loadWinners();
+            // Esconde todas as imagens e mostra apenas a imagem atual
+            slides.forEach(slide => slide.style.display = 'none');
+            slides[currentSlide].style.display = 'block';
+        }
+
+        function moveSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Inicializa o carrossel
+        showSlide(currentSlide);
+
+        // Navegação automática
+        setInterval(() => {
+            moveSlide(1);
+        }, 5000); // Altere o tempo em milissegundos se quiser uma mudança mais rápida ou lenta
+
+        // Menu toggle
+        const toggleButton = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu').querySelector('ul');
+        let isMenuOpen = false;
+
+        toggleButton.addEventListener('click', () => {
+            if (isMenuOpen) {
+                menu.style.display = 'none';
+                toggleButton.classList.remove('open');
+                isMenuOpen = false;
+            } else {
+                menu.style.display = 'flex';
+                toggleButton.classList.add('open');
+                isMenuOpen = true;
+            }
         });
     </script>
 </body>
